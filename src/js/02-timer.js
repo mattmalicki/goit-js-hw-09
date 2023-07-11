@@ -20,27 +20,51 @@ flatpickr(inputDate, {
     const currentDate = new Date();
     selectedDates[0] < currentDate
       ? incorrectDate()
-      : correctDate(selectedDates[0], currentDate);
+      : correctDate(selectedDates[0].getTime, currentDate.getTime);
   },
 });
+
+const daysMarkup = document.querySelector('[data-days]');
+const hoursMarkup = document.querySelector('[data-hours]');
+const minutesMarkup = document.querySelector('[data-minutes]');
+const secondsMarkup = document.querySelector('[data-seconds]');
 
 function incorrectDate() {
   startBttn.setAttribute('disabled', '');
   window.alert('Please choose date in the future!');
 }
 
-function correctDate(atr1, atr2) {
+function correctDate(selectedDate, currentDate) {
   startBttn.removeAttribute('disabled');
-  countdown(atr1, atr2);
+  countdown(convertMs(selectedDate - currentDate));
 }
 
-const days = document.querySelector('[data-days]');
-const hours = document.querySelector('[data-hours]');
-const minutes = document.querySelector('[data-minutes]');
-const seconds = document.querySelector('[data-seconds]');
+function addLeadingZero(value) {
+  value < 10 ? value.padStart('0') : '';
+}
 
-function countdown(selectedDate, currentDate) {
-  console.log(
-    `Thats a selected date - ${selectedDate} \n And thats a current date - ${currentDate}`
-  );
+function convertMs(ms) {
+  // Number of milliseconds per unit of time
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  // Remaining days
+  const days = Math.floor(ms / day);
+  // Remaining hours
+  const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+
+function countdown(obj) {
+  daysMarkup.value = addLeadingZero(obj.days);
+  hoursMarkup.value = addLeadingZero(obj.hours);
+  minutesMarkup.value = addLeadingZero(obj.minutes);
+  secondsMarkup.value = addLeadingZero(obj.seconds);
 }
