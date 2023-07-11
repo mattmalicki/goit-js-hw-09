@@ -1,6 +1,8 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+// variables
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -12,13 +14,22 @@ const options = {
 };
 const inputDate = document.querySelector('input#datetime-picker');
 const startBttn = document.querySelector('button[data-start]');
-startBttn.setAttribute('disabled', '');
+const daysMarkup = document.querySelector('[data-days]');
+const hoursMarkup = document.querySelector('[data-hours]');
+const minutesMarkup = document.querySelector('[data-minutes]');
+const secondsMarkup = document.querySelector('[data-seconds]');
 let msDate = 0;
 let intervals = 0;
+
+// button actions
+startBttn.setAttribute('disabled', '');
 startBttn.addEventListener('click', () => {
+  startBttn.setAttribute('disabled', '');
+  inputDate.setAttribute('disabled', '');
   intervals = setInterval(() => {
     countdown(convertMs(msDate));
     msDate -= 1000;
+    msDate <= 0 ? endCountdown() : '';
   }, 1000);
 });
 
@@ -28,18 +39,12 @@ flatpickr(inputDate, {
     const currentDate = new Date();
     selectedDates[0] < currentDate
       ? incorrectDate()
-      : correctDate(selectedDates[0].getTime, currentDate.getTime);
+      : correctDate(selectedDates[0].getTime(), currentDate.getTime());
   },
 });
 
-const daysMarkup = document.querySelector('[data-days]');
-const hoursMarkup = document.querySelector('[data-hours]');
-const minutesMarkup = document.querySelector('[data-minutes]');
-const secondsMarkup = document.querySelector('[data-seconds]');
-
 function incorrectDate() {
-  startBttn.setAttribute('disabled', '');
-  window.alert('Please choose date in the future!');
+  Notify.failure('Please choose a date in the future');
 }
 
 function correctDate(selectedDate, currentDate) {
@@ -48,7 +53,7 @@ function correctDate(selectedDate, currentDate) {
 }
 
 function addLeadingZero(value) {
-  value < 10 ? value.padStart('0') : '';
+  return value < 10 ? value.toString().padStart(2, '0') : value.toString();
 }
 
 function convertMs(ms) {
@@ -71,8 +76,14 @@ function convertMs(ms) {
 }
 
 function countdown(obj) {
-  daysMarkup.value = addLeadingZero(obj.days);
-  hoursMarkup.value = addLeadingZero(obj.hours);
-  minutesMarkup.value = addLeadingZero(obj.minutes);
-  secondsMarkup.value = addLeadingZero(obj.seconds);
+  daysMarkup.textContent = addLeadingZero(obj.days);
+  hoursMarkup.textContent = addLeadingZero(obj.hours);
+  minutesMarkup.textContent = addLeadingZero(obj.minutes);
+  secondsMarkup.textContent = addLeadingZero(obj.seconds);
+}
+
+function endCountdown() {
+  inputDate.removeAttribute('disabled');
+  startBttn.removeAttribute('disabled');
+  clearInterval(intervals);
 }
