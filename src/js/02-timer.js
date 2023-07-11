@@ -17,8 +17,6 @@ startBttn.setAttribute('disabled', '');
 
 flatpickr(inputDate, {
   options,
-  enableTime: true,
-  closeOnSelect: false,
   onClose: function (selectedDates) {
     const currentDate = new Date();
     selectedDates[0] < currentDate ? incorrectDate() : correctDate();
@@ -32,5 +30,4 @@ function incorrectDate() {
 
 function correctDate() {
   startBttn.removeAttribute('disabled');
-  console.log('Test');
 }
