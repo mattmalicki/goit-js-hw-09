@@ -13,6 +13,14 @@ const options = {
 const inputDate = document.querySelector('input#datetime-picker');
 const startBttn = document.querySelector('button[data-start]');
 startBttn.setAttribute('disabled', '');
+let msDate = 0;
+let intervals = 0;
+startBttn.addEventListener('click', () => {
+  intervals = setInterval(() => {
+    countdown(convertMs(msDate));
+    msDate -= 1000;
+  }, 1000);
+});
 
 flatpickr(inputDate, {
   ...options,
@@ -36,7 +44,7 @@ function incorrectDate() {
 
 function correctDate(selectedDate, currentDate) {
   startBttn.removeAttribute('disabled');
-  countdown(convertMs(selectedDate - currentDate));
+  msDate = selectedDate - currentDate;
 }
 
 function addLeadingZero(value) {
