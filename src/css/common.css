@@ -16,3 +16,71 @@ img {
   display: block;
   max-width: 100%;
 }
+
+input,
+button,
+.timer {
+  margin: 0 auto;
+}
+
+input {
+  padding-left: 20px;
+  color: rgb(46, 29, 29);
+  font-size: 24px;
+  border: 3px solid #808080;
+  border-radius: 26px;
+  background-color: rgba(128, 128, 128, 0.363);
+}
+
+button {
+  color: #28621869;
+  padding: 1px 15px;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 26px;
+  border: 3px solid #28621869;
+  background-color: #fff;
+}
+
+button:focus,
+button:hover {
+  color: #fff;
+  background-color: #28621869;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+button:disabled,
+button:disabled:hover {
+  color: #776f6f;
+  border-color: #776f6f;
+  background-color: #fff;
+  cursor: not-allowed;
+}
+
+.timer {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.field {
+  width: 20%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.value {
+  color: #28621843;
+  font-size: 72px;
+  font-weight: 700;
+}
+
+.label {
+  position: absolute;
+  bottom: 10;
+  left: 45px;
+  font-size: 36px;
+}
