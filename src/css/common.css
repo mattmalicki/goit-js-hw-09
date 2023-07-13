@@ -61,6 +61,7 @@ img {
 }
 
 .field {
+  min-width: 200px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -70,12 +71,17 @@ img {
   color: #28621843;
   font-size: 72px;
   font-weight: 700;
+  outline: none;
+}
+
+.value:disabled:hover {
+  cursor: not-allowed;
 }
 
 .label {
   position: absolute;
-  bottom: 5;
-  left: 45px;
+  bottom: 0;
+  left: 0;
   font-size: 36px;
 }
 
