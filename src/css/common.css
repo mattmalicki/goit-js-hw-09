@@ -17,13 +17,7 @@ img {
   max-width: 100%;
 }
 
-input,
-button,
-.timer {
-  margin: 0 auto;
-}
-
-input {
+#datetime-picker {
   padding-left: 20px;
   color: rgb(46, 29, 29);
   font-size: 24px;
@@ -32,7 +26,7 @@ input {
   background-color: rgba(128, 128, 128, 0.363);
 }
 
-button {
+.button-task2 {
   color: #28621869;
   padding: 1px 15px;
   font-size: 24px;
@@ -43,16 +37,16 @@ button {
   background-color: #fff;
 }
 
-button:focus,
-button:hover {
+.button-task2:focus,
+.button-task2:hover {
   color: #fff;
   background-color: #28621869;
   border-color: transparent;
   cursor: pointer;
 }
 
-button:disabled,
-button:disabled:hover {
+.button-task2:disabled,
+.button-task2:disabled:hover {
   color: #776f6f;
   border-color: #776f6f;
   background-color: #fff;
@@ -67,10 +61,9 @@ button:disabled:hover {
 }
 
 .field {
-  width: 200px;
   position: relative;
   display: flex;
-  align-items: center;
+  justify-content: center;
 }
 
 .value {
