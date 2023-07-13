@@ -20,12 +20,18 @@ const minutesMarkup = document.querySelector('[data-minutes]');
 const secondsMarkup = document.querySelector('[data-seconds]');
 let msDate = 0;
 let intervals = 0;
+const disable = name => {
+  name.setAttribute('disabled', '');
+};
+const enable = name => {
+  name.removeAttribute('disabled');
+};
 
 // button actions
 startBttn.setAttribute('disabled', '');
 startBttn.addEventListener('click', () => {
-  startBttn.setAttribute('disabled', '');
-  inputDate.setAttribute('disabled', '');
+  disable(startBttn);
+  disable(inputDate);
   intervals = setInterval(() => {
     countdown(convertMs(msDate));
     msDate -= 1000;
@@ -44,11 +50,12 @@ flatpickr(inputDate, {
 });
 
 function incorrectDate() {
+  disable(startBttn);
   Notify.failure('Please choose a date in the future');
 }
 
 function correctDate(selectedDate, currentDate) {
-  startBttn.removeAttribute('disabled');
+  enable(startBttn);
   msDate = selectedDate - currentDate;
 }
 
@@ -83,7 +90,6 @@ function countdown(obj) {
 }
 
 function endCountdown() {
-  inputDate.removeAttribute('disabled');
-  startBttn.removeAttribute('disabled');
+  enable(inputDate);
   clearInterval(intervals);
 }
