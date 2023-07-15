@@ -17,6 +17,54 @@ img {
   max-width: 100%;
 }
 
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-task1 {
+  background-color: rgb(255, 141, 141);
+  color: rgb(157, 62, 62);
+  border: 2px solid black;
+  font-size: 32px;
+  font-weight: 500;
+  width: 100px;
+  height: 200px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button-task1:hover,
+.button-task1:hover {
+  color: rgb(255, 141, 141);
+  background-color: rgb(157, 62, 62);
+  box-shadow: 0px 0px 31px 6px rgba(0, 0, 0, 0.63);
+}
+
+.button-task1:active {
+  background-color: rgb(255, 141, 141);
+  color: rgb(157, 62, 62);
+  box-shadow: 0px 0px 31px 6px rgba(0, 0, 0, 0.63) inset;
+}
+
+.button-task1:disabled,
+.button-task1:disabled:hover,
+.button-task1:disabled:focus {
+  background-color: gray;
+  color: darkgray;
+}
+
+.button-start {
+  border-radius: 200px 0px 0px 200px;
+}
+
+.button-stop {
+  border-radius: 0px 200px 200px 0px;
+}
+
 #datetime-picker {
   padding-left: 20px;
   color: rgb(46, 29, 29);
@@ -46,7 +94,7 @@ img {
 }
 
 .button-task2:disabled,
-.button-task2:disabled:hover {
+.button-task2:disabled:hover .button-task2:disabled:focus {
   color: #776f6f;
   border-color: #776f6f;
   background-color: #fff;
