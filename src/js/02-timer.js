@@ -21,14 +21,14 @@ const secondsMarkup = document.querySelector('[data-seconds]');
 let msDate = 0;
 let intervals = 0;
 const disable = name => {
-  name.setAttribute('disabled', '');
+  name.disabled = true;
 };
 const enable = name => {
-  name.removeAttribute('disabled');
+  name.disabled = false;
 };
 
 // button actions
-startBttn.setAttribute('disabled', '');
+startBttn.disabled = true;
 startBttn.addEventListener('click', () => {
   disable(startBttn);
   disable(inputDate);
@@ -47,15 +47,17 @@ flatpickr(inputDate, {
       ? incorrectDate()
       : correctDate(selectedDates[0].getTime(), currentDate.getTime());
   },
+  onChange: function (selectedDates) {
+    const currentDate = new Date();
+    selectedDates[0] < currentDate ? disable(startBttn) : enable(startBttn);
+  },
 });
 
 function incorrectDate() {
-  disable(startBttn);
   Notify.failure('Please choose a date in the future');
 }
 
 function correctDate(selectedDate, currentDate) {
-  enable(startBttn);
   msDate = selectedDate - currentDate;
 }
 

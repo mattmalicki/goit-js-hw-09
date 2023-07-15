@@ -1,9 +1,21 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+const form = document.querySelector('.form');
 const delayInput = document.querySelector('[name="delay"]');
 const stepInput = document.querySelector('[name="step"]');
 const amountInput = document.querySelector('[name="amount"]');
 const startBttn = document.querySelector('button');
+const disable = name => {
+  name.disabled = true;
+};
+const enable = name => {
+  name.disabled = false;
+};
+
+startBttn.disabled = true;
+
+form.addEventListener('click', onSubmit);
+
 function fulfilled(obj) {
   Notify.success(`Fulfilled promise ${obj.position} in ${obj.delay}ms`);
 }
@@ -11,10 +23,9 @@ function rejected(obj) {
   Notify.failure(`Rejected promise ${obj.position} in ${obj.delay}ms`);
 }
 
-startBttn.addEventListener('click', bttnClicked);
-
-function bttnClicked(event) {
+function onSubmit(event) {
   event.preventDefault();
+  disable(startBttn);
   const step = parseInt(stepInput.value);
   let delay = parseInt(delayInput.value);
   const amount = parseInt(amountInput.value);
@@ -28,6 +39,7 @@ function bttnClicked(event) {
       });
     delay += step;
   }
+  enable(startBttn);
 }
 
 function createPromise(position, delay) {
