@@ -52,9 +52,10 @@ img {
 
 .button-task1:disabled,
 .button-task1:disabled:hover,
-.button-task1:disabled:focus {
+.button-task1:disabled:focus .button-task1:disabled:active {
   background-color: gray;
   color: darkgray;
+  box-shadow: none;
 }
 
 .button-start {
