@@ -12,9 +12,7 @@ const enable = name => {
   name.disabled = false;
 };
 
-startBttn.disabled = true;
-
-form.addEventListener('click', onSubmit);
+form.addEventListener('submit', onSubmit);
 
 function fulfilled(obj) {
   Notify.success(`Fulfilled promise ${obj.position} in ${obj.delay}ms`);
@@ -29,6 +27,7 @@ function onSubmit(event) {
   const step = parseInt(stepInput.value);
   let delay = parseInt(delayInput.value);
   const amount = parseInt(amountInput.value);
+  const bttnTimout = step * (amount - 1) + delay;
   for (let i = 0; amount > i; i++) {
     createPromise(i + 1, delay)
       .then(obj => {
@@ -39,7 +38,9 @@ function onSubmit(event) {
       });
     delay += step;
   }
-  enable(startBttn);
+  setTimeout(() => {
+    enable(startBttn);
+  }, bttnTimout);
 }
 
 function createPromise(position, delay) {
